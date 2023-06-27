@@ -13,10 +13,10 @@
             <th>Manufacturer</th>
             <th>Model</th>
         </tr>
-        <tr th:each="car : ${cars}">
-                <td th:text="${car.getVin()}"></td>
-                <td th:text="${car.getFirm()}"></td>
-                <td th:text="${car.getModel()}"></td>
+        <tr th:each="user : ${users}">
+                <td th:text="${user.getName()}"></td>
+                <td th:text="${user.getLastName()}"></td>
+                <td th:text="${user.getAge()}"></td>
         </tr>
     </table>
 </div>
