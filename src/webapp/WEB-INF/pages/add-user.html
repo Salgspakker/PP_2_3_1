@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div>
+  <form th:action="@{/add}" method="post">
+    <input name="Name">
+    <input name="lastname">
+    <input type="number" min="0" max="120" name="Age">
+    <input type="submit" value="Add">
+  </form>
+</div>
+</body>
+</html>

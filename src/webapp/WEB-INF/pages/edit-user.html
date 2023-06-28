@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <form th:action="@{/edit}" method="post">
+        <input type= hidden readonly="readonly" name="Id" th:value="${user.id}">
+        <input readonly="readonly" name="Id" th:value="${user.id}">
+        <input name="Name" th:value="${user.name}">
+        <input name="lastname" th:value="${user.lastname}">
+        <input type="number" min="0" max="120" name="Age" th:value="${user.age}">
+        <input type="submit" value="Edit">
+    </form>
+</div>
+</body>
+</html>

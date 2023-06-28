@@ -50,11 +50,16 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
+    public String getLastname() {
         return this.lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastname(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return this.id + " " + this.name + " " + this.lastName + " " + this.age;
     }
 }

@@ -9,12 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
-    @Override
-    public List<User> getCarsSelected(int amount) {
-        return userDao.getCarsSelected(amount);
-    }
-
+    private final UserDao userDao;
     @Override
     @Transactional
     public List<User> allUsers() {
