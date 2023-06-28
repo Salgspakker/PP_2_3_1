@@ -32,18 +32,10 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public User findUser(int id) {
-        try {
-            return entityManager.find(User.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
-    }
     @Override
     public void delete(User user) {
         try {
-            User emp = findUser(user.getId());
+            User emp = getById(user.getId());
             if (emp != null) {
                 entityManager.remove(emp);
             }
