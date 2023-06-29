@@ -2,16 +2,24 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import web.model.User;
 import web.service.UserService;
+import javax.validation.Valid;
+
 
 @Controller
 public class UserController {
 
-    UserService userService;
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/")
     public String setPage() {
@@ -29,41 +37,35 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "/edit/{id}")
-    private ModelAndView editUser(@PathVariable(name = "id") int id) {
-        System.out.println("User : "+id);
+    @GetMapping(value = "/edit/{id}")
+    private String editUser(@PathVariable(name = "id") int id, Model model) {
         User user = userService.getById(id);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("edit-user");
-        modelAndView.addObject("user", user);
-        return modelAndView;
+        model.addAttribute("user", user);
+        return "edit-user";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView editUserPage(@ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/users");
+    @PostMapping(value = "/edit")
+    public String editUserPage(@Valid @ModelAttribute("user") User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "edit-user";
+        }
         userService.edit(user);
-        return modelAndView;
+        return "redirect:/users";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView addUserPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("add-user");
-        return modelAndView;
+    @GetMapping("/addView")
+    public String addUserPage(Model model) {
+        model.addAttribute("user", new User());
+        return "add-user";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addUser(@ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println(user);
-        modelAndView.setViewName("redirect:/users");
+    @PostMapping("/add")
+    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "add-user";
+        }
         userService.add(user);
-        return modelAndView;
+        return "redirect:/users";
     }
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+
 }

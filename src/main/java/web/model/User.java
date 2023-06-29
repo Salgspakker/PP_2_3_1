@@ -1,6 +1,7 @@
 package web.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
@@ -10,19 +11,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name="name")
+    @NotEmpty(message = "User's name cannot be empty.")
+    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Input")
     private String name;
     @Column(name = "lastname")
-    private String lastName;
+    @NotEmpty(message = "User's name cannot be empty.")
+    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Input")
+    private String lastname;
     @Column(name = "age")
+    @NotNull(message = "User's age cannot be null.")
+    @Min(value = 0, message = "User's age cannot be less than 0.")
+    @Max(value = 150, message = "User's age cannot be over 150.")
     private int age;
 
-    public User() {
+    public User() {}
 
-    }
-    public User(int id, String name, String lastName, int age) {
+    public User(int id, String name, String lastname, int age) {
         this.id = id;
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.age = age;
     }
 
@@ -38,28 +45,28 @@ public class User {
         return this.name;
     }
 
-    public int getAge() {
-        return this.age;
-    }
-
-    public void setAge(byte age) {
-        this.age = age;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    public int getAge() {
+        return this.age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
     public String getLastname() {
-        return this.lastName;
+        return this.lastname;
     }
 
     public void setLastname(String lastName) {
-        this.lastName = lastName;
+        this.lastname = lastName;
     }
 
     @Override
     public String toString() {
-        return this.id + " " + this.name + " " + this.lastName + " " + this.age;
+        return this.id + " " + this.name + " " + this.lastname + " " + this.age;
     }
 }
