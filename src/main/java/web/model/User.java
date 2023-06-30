@@ -10,17 +10,20 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name="name")
     @NotEmpty(message = "User's name cannot be empty.")
-    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Input")
+    @Pattern(regexp="^[A-ZА-Я][a-zа-я]*$",message = "Invalid Input")
     private String name;
+
     @Column(name = "lastname")
-    @NotEmpty(message = "User's name cannot be empty.")
-    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Input")
+    @NotEmpty(message = "User's Last Name cannot be empty.")
+    @Pattern(regexp="^[A-ZА-Я][a-zа-я]*$",message = "Invalid Input")
     private String lastname;
+
     @Column(name = "age")
     @NotNull(message = "User's age cannot be null.")
-    @Min(value = 0, message = "User's age cannot be less than 0.")
+    @Min(value = 1, message = "User's age cannot be less than 1.")
     @Max(value = 150, message = "User's age cannot be over 150.")
     private int age;
 
