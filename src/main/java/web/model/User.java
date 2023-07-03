@@ -12,12 +12,12 @@ public class User {
     private int id;
 
     @Column(name="name")
-    @NotEmpty(message = "User's name cannot be empty.")
+    @NotNull(message = "User's name cannot be empty.")
     @Pattern(regexp="^[A-ZА-Я][a-zа-я]*$",message = "Invalid Input")
     private String name;
 
     @Column(name = "lastname")
-    @NotEmpty(message = "User's Last Name cannot be empty.")
+    @NotNull(message = "User's Last Name cannot be empty.")
     @Pattern(regexp="^[A-ZА-Я][a-zа-я]*$",message = "Invalid Input")
     private String lastname;
 
